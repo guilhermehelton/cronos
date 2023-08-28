@@ -1,0 +1,18 @@
+version: '3.8'
+networks:
+  cronos-network:
+    external: true
+services:
+  db:
+    image: mysql:oracle
+    container_name: cronos-mysql
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: cronospwd
+      MYSQL_DATABASE: cronosDatabase
+      MYSQL_USER: cronosUser
+      MYSQL_PASSWORD: cronospwd
+    volumes:
+      - /var/lib/mysql
+    restart: always
