@@ -1,4 +1,4 @@
-package com.cronos.api.service.usuarios;
+package com.cronos.api.service;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario criarAluno(CriarUsuarioDTO inputUsuario) {
-        List<Usuario> userExists = usuarioRepository.findByEmail(inputUsuario.getEmail());
+    public Usuario criarUsuario(CriarUsuarioDTO inputUsuario) {
+        List<Usuario> userExists = usuarioRepository.findByMatricula(inputUsuario.getMatricula());
 
         if (!userExists.isEmpty()) {
             return null;
@@ -30,14 +30,21 @@ public class UsuarioService {
         newUser.setMatricula(inputUsuario.getMatricula());
         newUser.setSenha(inputUsuario.getSenha());
         newUser.setTipoPerfil(inputUsuario.getTipoPerfil().toString());
+        newUser.setCargaHorariaTotal(0);
 
         Usuario savedUser = usuarioRepository.save(newUser);
 
         return savedUser;
     }
 
-    public List<Usuario> listarAlunos() {
+    public List<Usuario> listarUsuariosAlunos() {
         List<Usuario> usuarios = usuarioRepository.findByTipoPerfilEquals(EnumTipoPerfil.ALUNO.toString());
+
+        return usuarios;
+    }
+
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
 
         return usuarios;
     }

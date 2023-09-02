@@ -11,29 +11,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cronos.api.dto.CriarUsuarioDTO;
 import com.cronos.api.entity.Usuario;
-import com.cronos.api.service.usuarios.UsuarioService;
+import com.cronos.api.service.UsuarioService;
+
+import io.micrometer.core.ipc.http.HttpSender.Response;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping("/aluno")
+@RequestMapping("/usuario")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Object> criarAlunoController(@RequestBody CriarUsuarioDTO usuarioInput) {
-        var newVigencia = usuarioService.criarAluno(usuarioInput);
+    public ResponseEntity<Object> criarUsuarioController(@RequestBody CriarUsuarioDTO usuarioInput) {
+        var newUsuario = usuarioService.criarUsuario(usuarioInput);
 
-        if (newVigencia.equals(null)) {
-            return ResponseEntity.status(400).body("Falha ao criar aluno");
+        if (newUsuario == null) {
+            return ResponseEntity.status(400).body("Matrícula já cadastrada");
         }
 
-        return ResponseEntity.status(200).body("Sucesso ao criar aluno");
+        return ResponseEntity.status(200).body("Sucesso ao criar usuario");
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Usuario>> listarAlunos() {
-        return ResponseEntity.ok(usuarioService.listarAlunos());
+    @GetMapping("/alunos")
+    public ResponseEntity<List<Usuario>> listarUsuariosAlunos() {
+        return ResponseEntity.ok(usuarioService.listarUsuariosAlunos());
     }
 
+    @GetMapping
+    public ResponseEntity<List<Usuario>> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarUsuarios());
+    }
 }

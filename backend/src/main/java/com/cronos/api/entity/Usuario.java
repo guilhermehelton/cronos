@@ -1,13 +1,24 @@
 package com.cronos.api.entity;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
+import org.hibernate.annotations.ManyToAny;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,12 +29,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity()
-public class Usuario {
+@Entity
+public class Usuario implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(length = 150, nullable = false)
     private String nome;
@@ -40,7 +50,7 @@ public class Usuario {
     @Column(length = 64, nullable = true)
     private String curso;
 
-    @Column(length = 14, nullable = false)
+    @Column(length = 14, nullable = false, unique = true)
     private String matricula;
 
     @Column(length = 150, nullable = false)
@@ -49,6 +59,7 @@ public class Usuario {
     @Column(nullable = true)
     private Integer cargaHorariaTotal;
 
-    @ManyToMany
-    private List<Laboratorio> laboratorios;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
+    private Set<Laboratorio> laboratorios;
 }
