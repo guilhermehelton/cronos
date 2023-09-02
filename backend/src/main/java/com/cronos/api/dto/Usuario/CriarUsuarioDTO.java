@@ -1,6 +1,8 @@
-package com.cronos.api.dto;
+package com.cronos.api.dto.Usuario;
 
 import java.util.Date;
+
+import com.cronos.api.dto.EnumTipoPerfil;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

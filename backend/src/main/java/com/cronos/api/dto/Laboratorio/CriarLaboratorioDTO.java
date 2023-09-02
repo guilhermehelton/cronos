@@ -1,4 +1,4 @@
-package com.cronos.api.dto;
+package com.cronos.api.dto.Laboratorio;
 
 import java.util.List;
 
