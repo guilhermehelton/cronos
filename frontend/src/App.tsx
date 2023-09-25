@@ -1,13 +1,13 @@
 import './App.css'
-import { PaginaContextProvider } from './contexts/PaginaContext'
+import { LaboratoriosContextProvider } from './contexts/PaginaContext'
 import { AppRoutes } from './routes/routes'
 
 function App() {
 
   return (
-    <PaginaContextProvider>
+    <LaboratoriosContextProvider>
       <AppRoutes/>
-    </PaginaContextProvider>
+    </LaboratoriosContextProvider>
   )
 }
 

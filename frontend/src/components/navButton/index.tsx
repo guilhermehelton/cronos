@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { MouseEvent, useContext, useState } from "react"
+import { MouseEvent, useState } from "react"
 import "./index.css"
 import { labType } from "../../types/labListType";
-import { PaginaContext } from "../../contexts/PaginaContext";
-import { PaginasEnum } from "../../types/paginasEnum";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     label: string,
@@ -15,7 +14,7 @@ interface Props {
 
 export const NavButton = (props : Props) => {
     const [menuDropdownState, setMenuDropdownState] = useState('hide');
-    const {handleTrocaPagina} = useContext(PaginaContext);
+    const navigate = useNavigate();
 
     const handleChangeDropownMenu = () => {
         if(menuDropdownState == 'hide'){
@@ -25,8 +24,12 @@ export const NavButton = (props : Props) => {
         }
     }
 
-    const handleChangeLab = (nomeLab : string) => {
-        handleTrocaPagina(PaginasEnum.LAB, nomeLab, 'groups');
+    const handleChangeLab = (idLab : string) => {
+        navigate(`/laboratorio/${idLab}`)
+    }
+
+    const handleChangeToAddLab = () => {
+        navigate('/laboratorio/add')
     }
 
     return (
@@ -40,13 +43,13 @@ export const NavButton = (props : Props) => {
             <ul className={`labList ${menuDropdownState}`}>
                 {
                     props.itemList?.map(item => (
-                        <li onClick={e => handleChangeLab(item.name)}>
+                        <li onClick={e => handleChangeLab(item.id)}>
                             <span className="material-symbols-outlined">computer</span>
                             <span className="label">{item.name}</span>
                         </li>
                     ))
                 }
-                <li  onClick={e => handleChangeLab('Adicionar Laboratório')}>
+                <li  onClick={e => handleChangeToAddLab()}>
                     <span className="material-symbols-outlined">add</span>
                     <span className="label">Adicionar</span>
                 </li>

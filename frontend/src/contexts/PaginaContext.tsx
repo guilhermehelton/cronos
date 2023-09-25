@@ -1,40 +1,34 @@
 import { ReactNode, createContext, useState } from "react";
-import { PaginasEnum } from "../types/paginasEnum";
+import { labType } from "../types/labListType";
 
 type Props = {
     children: ReactNode
 }
 
-type PaginaContextType = {
-    paginaAtual: PaginasEnum,
-    handleTrocaPagina: (newPagina: PaginasEnum, tituloPagina: string, iconPagina: string) => void,
-    tituloPagina: string
-    icon: string,
+type LaboratoriosContextType = {
+    laboratorios: labType[],
+    setLaboratorios: (laboratorios: labType[]) => void,
 }
 
 const initialValue = {
-    paginaAtual: PaginasEnum.HOME,
-    handleTrocaPagina: () => {},
-    tituloPagina: 'Dados do Usuário',
-    icon: 'home'
+    laboratorios: [{
+        id: '1',
+        name: 'Laboratório 01'
+    },{
+        id: '2',
+        name: 'Laboratório 02'
+    }],
+    setLaboratorios: () => {},
 }
 
-export const PaginaContext = createContext<PaginaContextType>(initialValue);
+export const LaboratoriosContext = createContext<LaboratoriosContextType>(initialValue);
 
-export const PaginaContextProvider = ({children} : Props) => {
-    const [paginaAtual, setPaginaAtual] = useState(initialValue.paginaAtual);
-    const [tituloPagina, setTituloPagina] = useState(initialValue.tituloPagina);
-    const [icon, setIconPagina] = useState(initialValue.icon);
-
-    const handleTrocaPagina = (newPagina: PaginasEnum, tituloPagina: string, iconPagina: string) => {
-        setPaginaAtual(newPagina);
-        setTituloPagina(tituloPagina);
-        setIconPagina(iconPagina);
-    }
+export const LaboratoriosContextProvider = ({children} : Props) => {
+    const [laboratorios, setLaboratorios] = useState(initialValue.laboratorios);
 
     return (
-        <PaginaContext.Provider value={{paginaAtual, handleTrocaPagina, tituloPagina, icon}}>
+        <LaboratoriosContext.Provider value={{laboratorios, setLaboratorios}}>
             {children}
-        </PaginaContext.Provider>
+        </LaboratoriosContext.Provider>
     )
 }

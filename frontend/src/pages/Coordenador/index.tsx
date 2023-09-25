@@ -3,11 +3,11 @@ import { Header } from "../../components/header"
 import { Sidebar } from "../../components/sidebar"
 import "./index.css"
 
-export const Home = () => {
+export const Coordenador = () => {
     return (
-        <div className="home">
+        <div className="coordenador">
             <Sidebar />
-            <Header tittle='Dados do Usuário' icon='home'/>
+            <Header tittle="Cadastrar Coordenador" icon='groups'/>
         </div>
     )
 }

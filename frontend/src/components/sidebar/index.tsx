@@ -1,34 +1,23 @@
 import { useNavigate } from "react-router-dom"
 import { NavButton } from "../navButton"
 import "./index.css"
-import { labType } from "../../types/labListType";
 import { useContext } from "react";
-import { PaginaContext } from "../../contexts/PaginaContext";
-import { PaginasEnum } from "../../types/paginasEnum";
+import { LaboratoriosContext } from "../../contexts/PaginaContext";
 
 export const Sidebar = () => {
     const navigate = useNavigate();
-    const {handleTrocaPagina} = useContext(PaginaContext);
-
-
-    const labList: labType[] = [{
-        id: '1',
-        name: 'Laboratório 01'
-    },{
-        id: '2',
-        name: 'Laboratório 02'
-    }];
+    const {laboratorios} = useContext(LaboratoriosContext);
 
     const handleSair = () => {
         navigate("/")
     }
 
     const handleNavegarPaginaPrincipal = () => {
-        handleTrocaPagina(PaginasEnum.HOME, 'Dados do Usuário', 'home');
+        navigate("/home")
     }
 
     const handleNavegarCoordenador = () => {
-        handleTrocaPagina(PaginasEnum.COORDENADOR, 'Cadastrar Coordenador', 'groups');
+        navigate("/coordenador")
     }
 
     return (
@@ -52,7 +41,7 @@ export const Sidebar = () => {
 
             {/* Botoes de navegação */}
             <NavButton label="Principal" icon="home" handleFunction={handleNavegarPaginaPrincipal}/>
-            <NavButton label="Laboratórios" isDropdown={true} icon="groups" itemList={labList}/>
+            <NavButton label="Laboratórios" isDropdown={true} icon="groups" itemList={laboratorios}/>
             <NavButton label="Coordenador" icon="person_add" handleFunction={handleNavegarCoordenador}/>
             <NavButton label="Sair" icon="logout" handleFunction={handleSair}/>
         </div>
