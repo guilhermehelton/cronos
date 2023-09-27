@@ -1,0 +1,16 @@
+.topBar {
+    margin-top: 8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-weight: 500;
+}
+
+.topBarButtons {
+    padding: 0px 1em;
+}
+
+.midButton {
+    margin: 0px 10vw;
+}

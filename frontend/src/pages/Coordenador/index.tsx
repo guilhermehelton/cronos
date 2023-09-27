@@ -7,7 +7,9 @@ export const Coordenador = () => {
     return (
         <div className="coordenador">
             <Sidebar />
-            <Header tittle="Cadastrar Coordenador" icon='groups'/>
+            <div className="bodyPage">
+                <Header tittle="Cadastrar Coordenador" icon='groups'/>
+            </div>
         </div>
     )
 }

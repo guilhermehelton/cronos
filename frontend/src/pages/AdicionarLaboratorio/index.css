@@ -1,3 +1,32 @@
 .add-laboratorio {
+    display: grid;
+    grid-template-columns: 15vw 1fr;
+}
+
+.addLabForm {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.form-buttons.lab {
+    margin-top: 1em;
+}
+
+.margin-left {
+    margin-left: 5vw;
+}
+
+.secondary-btn.lab {
+    width: fit-content;
+}
+
+.tableDiv span {
+    font-weight: 500;
+}
+
+.align-self-left {
+    align-self: flex-start;
 }

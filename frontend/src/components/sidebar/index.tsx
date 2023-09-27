@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { NavButton } from "../navButton"
 import "./index.css"
 import { useContext } from "react";
-import { LaboratoriosContext } from "../../contexts/PaginaContext";
+import { LaboratoriosContext } from "../../contexts/LaboratorioContext";
 
 export const Sidebar = () => {
     const navigate = useNavigate();

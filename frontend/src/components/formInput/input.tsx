@@ -3,7 +3,7 @@ import "./index.css"
 
 interface Props {
     labelName: string,
-    icon: "badge" | "lock" | "school" | "mail" | "calendar_today",
+    icon: "badge" | "lock" | "school" | "mail" | "calendar_today" | "location_on",
     inputName: string,
     handleFunction?: (e : ChangeEvent<HTMLInputElement>) => void,
     aditionalClassName?: string,

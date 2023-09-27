@@ -8,6 +8,8 @@
     min-width: 15vw;
     height: 100vh;
     color: #fff;
+    position: fixed;
+    grid-column: 1;
 }
 
 .userData {

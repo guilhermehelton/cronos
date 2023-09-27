@@ -1,5 +1,5 @@
 import './App.css'
-import { LaboratoriosContextProvider } from './contexts/PaginaContext'
+import { LaboratoriosContextProvider } from './contexts/LaboratorioContext'
 import { AppRoutes } from './routes/routes'
 
 function App() {
