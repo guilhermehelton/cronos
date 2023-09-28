@@ -27,18 +27,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping
-    @Operation(summary = "Criar um usuário")
-    public ResponseEntity<Object> criarUsuarioController(@RequestBody CriarUsuarioDTO usuarioInput) {
-        var newUsuario = usuarioService.criarUsuario(usuarioInput);
-
-        if (newUsuario == null) {
-            return ResponseEntity.status(400).body("Matrícula já cadastrada");
-        }
-
-        return ResponseEntity.status(200).body("Sucesso ao criar usuario");
-    }
-
     @GetMapping("/alunos")
     @Operation(summary = "Lista todos os usuários com perfil de ALUNO")
     public ResponseEntity<List<Usuario>> listarUsuariosAlunos() {

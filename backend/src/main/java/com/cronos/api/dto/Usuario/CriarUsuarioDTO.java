@@ -24,5 +24,5 @@ public class CriarUsuarioDTO {
 
     private String matricula;
 
-    private EnumTipoPerfil tipoPerfil;
+    private EnumTipoPerfil role;
 }

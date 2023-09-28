@@ -1,10 +1,17 @@
 package com.cronos.api.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.cronos.api.dto.EnumTipoPerfil;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -24,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -38,7 +45,7 @@ public class Usuario implements Serializable {
     @Column
     private Date dataNascimento;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 64, nullable = false)
     private String senha;
 
     @Column(length = 64, nullable = true)
@@ -47,8 +54,8 @@ public class Usuario implements Serializable {
     @Column(length = 14, nullable = false, unique = true)
     private String matricula;
 
-    @Column(length = 150, nullable = false)
-    private String tipoPerfil;
+    @Column(nullable = false)
+    private EnumTipoPerfil role;
 
     @Column(nullable = true)
     private Integer cargaHorariaTotal;
@@ -56,4 +63,44 @@ public class Usuario implements Serializable {
     @JsonBackReference
     @ManyToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
     private Set<Laboratorio> laboratorios;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (role == EnumTipoPerfil.COORDENADOR) {
+            return List.of(new SimpleGrantedAuthority("ROLE_COORDENADOR"), new SimpleGrantedAuthority("ROLE_ALUNO"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_ALUNO"));
+        }
+
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return matricula;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

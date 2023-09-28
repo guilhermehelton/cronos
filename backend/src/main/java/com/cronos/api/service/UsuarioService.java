@@ -32,7 +32,7 @@ public class UsuarioService {
         newUser.setCurso(inputUsuario.getCurso());
         newUser.setMatricula(inputUsuario.getMatricula());
         newUser.setSenha(inputUsuario.getSenha());
-        newUser.setTipoPerfil(inputUsuario.getTipoPerfil().toString());
+        newUser.setRole(inputUsuario.getRole());
         newUser.setCargaHorariaTotal(0);
 
         Usuario savedUser = usuarioRepository.save(newUser);
@@ -41,7 +41,7 @@ public class UsuarioService {
     }
 
     public List<Usuario> listarUsuariosAlunos() {
-        List<Usuario> usuarios = usuarioRepository.findByTipoPerfilEquals(EnumTipoPerfil.ALUNO.toString());
+        List<Usuario> usuarios = usuarioRepository.findByRoleEquals(EnumTipoPerfil.ALUNO.toString());
 
         return usuarios;
     }
