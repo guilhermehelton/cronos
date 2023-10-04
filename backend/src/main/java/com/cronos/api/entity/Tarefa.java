@@ -44,7 +44,7 @@ public class Tarefa implements Serializable {
     private UUID idDono;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "laboratorio_id", nullable = true)
     private Laboratorio laboratorio;
 }

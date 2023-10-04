@@ -1,27 +1,21 @@
 import { ReactNode, createContext, useState } from "react";
-import { labType } from "../types/labListType";
+import { Laboratorio } from "../types/laboratorioType";
 
 type Props = {
     children: ReactNode
 }
 
-type LaboratoriosContextType = {
-    laboratorios: labType[],
-    setLaboratorios: (laboratorios: labType[]) => void,
+type AuthContextType = {
+    laboratorios: Laboratorio[],
+    setLaboratorios: (laboratorios: Laboratorio[]) => void,
 }
 
 const initialValue = {
-    laboratorios: [{
-        id: '1',
-        name: 'Laboratório 01'
-    },{
-        id: '2',
-        name: 'Laboratório 02'
-    }],
+    laboratorios: [] as Laboratorio[],
     setLaboratorios: () => {},
 }
 
-export const LaboratoriosContext = createContext<LaboratoriosContextType>(initialValue);
+export const LaboratoriosContext = createContext<AuthContextType>(initialValue);
 
 export const LaboratoriosContextProvider = ({children} : Props) => {
     const [laboratorios, setLaboratorios] = useState(initialValue.laboratorios);

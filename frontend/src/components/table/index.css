@@ -25,3 +25,16 @@
 .tableRow {
     height: 2.5em;
 }
+.margin-left-1em {
+    margin-left: 1em;
+}
+
+.actionButton {
+    padding: 2px;
+}
+
+.actionButton:hover {
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 50%;
+}

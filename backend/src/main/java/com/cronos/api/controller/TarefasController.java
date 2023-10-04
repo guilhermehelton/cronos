@@ -28,14 +28,14 @@ public class TarefasController {
 
     @PostMapping
     @Operation(summary = "Cria uma tarefa")
-    public ResponseEntity<Object> criarTarefa(@RequestBody CriarTarefaDTO criarTarefaDTO) {
+    public ResponseEntity<Tarefa> criarTarefa(@RequestBody CriarTarefaDTO criarTarefaDTO) {
         var newTarefa = tarefasService.criarTarefa(criarTarefaDTO);
 
         if (newTarefa == null) {
-            return ResponseEntity.status(400).body("Erro ao criar tarefa");
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.status(200).body("Sucesso ao criar tarefa");
+        return ResponseEntity.ok(newTarefa);
     }
 
     @PutMapping(value = "/{idTarefa}")

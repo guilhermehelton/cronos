@@ -1,8 +1,12 @@
 import './index.css'
 
-export const AddButton = () => {
+type Props = {
+    handleFunction: () => void,
+}
+
+export const AddButton = (props: Props) => {
     return(
-        <div className="addButton">
+        <div className="addButton" onClick={props.handleFunction}>
             <span className="material-symbols-outlined">add</span>
             <span>Adicionar</span>
         </div>

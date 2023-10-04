@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MouseEvent, useState } from "react"
 import "./index.css"
-import { labType } from "../../types/labListType";
 import { useNavigate } from "react-router-dom";
+import { Laboratorio } from "../../types/laboratorioType";
 
 interface Props {
     label: string,
     icon?: 'home' | 'groups' | 'person_add' | 'logout',
     handleFunction?: (e : MouseEvent<HTMLAnchorElement>) => void,
-    itemList?: labType[],
+    itemList?: Laboratorio[],
     isDropdown?: boolean
 }
 
@@ -43,9 +43,9 @@ export const NavButton = (props : Props) => {
             <ul className={`labList ${menuDropdownState}`}>
                 {
                     props.itemList?.map(item => (
-                        <li onClick={e => handleChangeLab(item.id)}>
+                        <li onClick={e => handleChangeLab(item.id)} key={item.id}>
                             <span className="material-symbols-outlined">computer</span>
-                            <span className="label">{item.name}</span>
+                            <span className="label">{item.nome}</span>
                         </li>
                     ))
                 }

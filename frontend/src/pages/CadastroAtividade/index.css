@@ -1,0 +1,13 @@
+.atividadeForm{
+
+    display: flex;
+    flex-direction: column;
+}
+
+.align-self-right {
+    align-self: flex-end;
+}
+
+.margin-top-2em {
+    margin-top: 2.5em;
+}

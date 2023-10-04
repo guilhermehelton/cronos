@@ -3,5 +3,7 @@ export type Tarefa = {
     descricao: string,
     dataInicio: string,
     dataFim: string,
-    cargaHoraria: string
+    cargaHoraria: number,
+    idDono: string,
+    laboratorio: string  
 }

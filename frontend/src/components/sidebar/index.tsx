@@ -2,14 +2,23 @@ import { useNavigate } from "react-router-dom"
 import { NavButton } from "../navButton"
 import "./index.css"
 import { useContext } from "react";
-import { LaboratoriosContext } from "../../contexts/LaboratorioContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { Usuario } from "../../types/usuarioType";
+import { LaboratoriosContext } from "../../contexts/LaboratoriosContext";
+import { RoleEnum } from "../../types/roleEnum";
 
 export const Sidebar = () => {
     const navigate = useNavigate();
+    const {usuario, setUsuario, setSigned} = useContext(AuthContext);
     const {laboratorios} = useContext(LaboratoriosContext);
 
     const handleSair = () => {
-        navigate("/")
+        sessionStorage.removeItem("@Auth:token")
+        sessionStorage.removeItem("@Auth:user")
+        setSigned(false);
+        setUsuario({} as Usuario);
+        
+        navigate("/");
     }
 
     const handleNavegarPaginaPrincipal = () => {
@@ -36,13 +45,15 @@ export const Sidebar = () => {
                         </clipPath>
                     </defs>
                 </svg>
-                <p>Nome de usuário</p>
+                <p>{usuario.nome}</p>
             </div>
 
             {/* Botoes de navegação */}
             <NavButton label="Principal" icon="home" handleFunction={handleNavegarPaginaPrincipal}/>
             <NavButton label="Laboratórios" isDropdown={true} icon="groups" itemList={laboratorios}/>
-            <NavButton label="Coordenador" icon="person_add" handleFunction={handleNavegarCoordenador}/>
+            {(usuario.role == RoleEnum.COORDENADOR) && 
+                <NavButton label="Coordenador" icon="person_add" handleFunction={handleNavegarCoordenador}/>
+            }
             <NavButton label="Sair" icon="logout" handleFunction={handleSair}/>
         </div>
     )

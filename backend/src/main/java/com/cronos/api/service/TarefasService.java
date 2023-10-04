@@ -99,7 +99,7 @@ public class TarefasService {
 
             laboratorioRepository.save(laboratorio.get());
 
-            tarefasRepository.delete(tarefa.get());
+            tarefasRepository.deleteById(tarefa.get().getId());
         }
     }
 }

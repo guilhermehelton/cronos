@@ -1,13 +1,16 @@
 import './App.css'
-import { LaboratoriosContextProvider } from './contexts/LaboratorioContext'
+import { AuthContextProvider } from './contexts/AuthContext'
+import { LaboratoriosContextProvider } from './contexts/LaboratoriosContext'
 import { AppRoutes } from './routes/routes'
 
 function App() {
 
   return (
-    <LaboratoriosContextProvider>
-      <AppRoutes/>
-    </LaboratoriosContextProvider>
+    <AuthContextProvider>
+      <LaboratoriosContextProvider>
+        <AppRoutes/>
+      </LaboratoriosContextProvider>
+    </AuthContextProvider>
   )
 }
 

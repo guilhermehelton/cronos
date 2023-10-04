@@ -3,56 +3,86 @@ import { useParams } from "react-router-dom"
 import { Header } from "../../components/header"
 import { Sidebar } from "../../components/sidebar"
 import "./index.css"
-import { useContext } from "react"
-import { LaboratoriosContext } from "../../contexts/LaboratorioContext"
-import { labType } from "../../types/labListType"
+import { useContext, useEffect, useState } from "react"
 import { FloatCard } from "../../components/floatCard"
 import { TopBar } from "../../components/topBar"
 import { TableTarefas } from "../../components/table/TableTarefas"
 import { AddButton } from "../../components/addButton"
-import { Tarefa } from "../../types/typeTarefa"
+import { Laboratorio } from "../../types/laboratorioType"
+import { LaboratoriosContext } from "../../contexts/LaboratoriosContext"
+import { CadastroAtividade } from "../CadastroAtividade"
+import { Tarefa } from "../../types/tarefasType"
 
-export const Laboratorio = () => {
+export const LaboratorioPage = () => {
     const {laboratorioId} = useParams();
     const {laboratorios} = useContext(LaboratoriosContext);
+    const [laboratorio, setLaboratorio] = useState({} as Laboratorio);
+    const [isCadastro, setIsCadastro] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [tarefaToEdit, setTarefaToEdit] = useState({} as Tarefa);
+    const [refresh, setRefresh] = useState(false);
 
-    const getLaboratorioData = () : labType => {
-        return laboratorios.filter(lab => lab.id == laboratorioId)[0];
+    useEffect(() => {
+        setLaboratorio(laboratorios.filter(lab => lab.id == laboratorioId)[0]);
+    }, [])
+
+    const handleChangeCadastro = () => {
+        if(isCadastro){
+            setIsCadastro(false);
+            setTarefaToEdit({} as Tarefa);
+        } else{
+            setIsCadastro(true);
+        }
     }
 
-    const tarefasList : Tarefa[] = [{
-        id: '01',
-        descricao: 'Tarefa 01',
-        dataInicio: '29/09/2023',
-        dataFim: '30/09/2023',
-        cargaHoraria: '5 horas',
-    }, {
-        id: '02',
-        descricao: 'Tarefa 02',
-        dataInicio: '29/09/2023',
-        dataFim: '30/09/2023',
-        cargaHoraria: '5 horas'
-    }, {
-        id: '03',
-        descricao: 'Tarefa 03',
-        dataInicio: '29/09/2023',
-        dataFim: '30/09/2023',
-        cargaHoraria: '5 horas'
-    }]
+    const handleShowEditMenu = () => {
+        setIsCadastro(true);
+        setIsUpdate(true);
+    }
+
+    const refreshPage = () => {
+        if(refresh) {
+            setRefresh(false);
+        } else {
+            setRefresh(true);
+        }
+    }
 
     return (
+        (laboratorio.tarefas && laboratorio.equipe) &&
         <div className="laboratorio">
             <Sidebar />
             <div className="bodyPage">
-                <Header tittle={getLaboratorioData().name} icon='groups'/>
+                <Header tittle={laboratorio.nome} icon='groups'/>
                 <div className="cards"> 
-                    <FloatCard titulo="Atividades" icon="description" info="03"/>
-                    <FloatCard titulo="Membros" icon="groups" info="03" isSecond={true}/>
+                    <FloatCard titulo="Atividades" icon="description" info={laboratorio.tarefas.length + ''}/>
+                    <FloatCard titulo="Membros" icon="groups" info={laboratorio.equipe.length + ''} isSecond={true}/>
                 </div>
                 <TopBar />
                 <div className="tableDiv">
-                    <AddButton />
-                    <TableTarefas tableData={tarefasList}/>
+                    {
+                    isCadastro ? 
+                        <>
+                            <CadastroAtividade
+                                    tarefa={tarefaToEdit}
+                                    isUpdate={isUpdate}
+                                    laboratorio={laboratorio}
+                                    cancelHandleFunction={handleChangeCadastro}
+                                    setLaboratorio={setLaboratorio}/>
+                        </>
+                        : 
+                        <>
+                            <AddButton handleFunction={handleChangeCadastro}/>
+                            <TableTarefas
+                                refreshLabPage={refreshPage}
+                                laboratorio={laboratorio}
+                                setLaboratorio={setLaboratorio}
+                                cancelHandleFunction={handleChangeCadastro}
+                                setTarefaToEdit={setTarefaToEdit}
+                                setShowEditMenu={handleShowEditMenu}
+                                tableData={laboratorio.tarefas ?? []}/>
+                        </>
+                    }
                 </div>
             </div>
         </div>
