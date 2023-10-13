@@ -4,6 +4,7 @@ import './index.css'
 import { AuthContext } from '../../contexts/AuthContext';
 import { Laboratorio } from '../../types/laboratorioType';
 import { LaboratoriosContext } from '../../contexts/LaboratoriosContext';
+import { formatDataToShow } from '../../utils/formatData';
 
 type Props = {
     tableData: Tarefa[],
@@ -13,19 +14,6 @@ type Props = {
     setTarefaToEdit: (tarefa: Tarefa) => void,
     cancelHandleFunction: () => void,
     refreshLabPage: () => void,
-}
-
-export const formatDataToShow = (data?: Date | string): string => {
-    if(data == undefined || data == '') {
-        return '';
-    }
-    const dataString = data + '';
-    const dataFormatada = dataString.slice(0, 10).split("-");
-    const dia = dataFormatada[2];
-    const mes = dataFormatada[1];
-    const ano = dataFormatada[0];
-
-    return `${dia}/${mes}/${ano}`;
 }
 
 export const TableTarefas = (props: Props) => {
