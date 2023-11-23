@@ -41,11 +41,12 @@ public class LaboratorioService {
 
         listaAlunos.add(coordenador.get());
 
-        Laboratorio newLaboratorio = new Laboratorio();
-        newLaboratorio.setIdCoordenador(coordenador.get().getId());
-        newLaboratorio.setNome(laboratorioInput.getNome());
-        newLaboratorio.setNumeroSala(laboratorioInput.getNumeroSala());
-        newLaboratorio.setEquipe(listaAlunos);
+        Laboratorio newLaboratorio = Laboratorio.builder()
+                .idCoordenador(coordenador.get().getId())
+                .nome(laboratorioInput.getNome())
+                .numeroSala(laboratorioInput.getNumeroSala())
+                .equipe(listaAlunos)
+                .build();
 
         Laboratorio savedLaboratorio = laboratorioRepository.save(newLaboratorio);
 

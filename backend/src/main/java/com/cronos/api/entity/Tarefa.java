@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import com.cronos.api.builders.TarefaManualBuilder;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,4 +47,8 @@ public class Tarefa implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "laboratorio_id", nullable = true)
     private Laboratorio laboratorio;
+
+    public static TarefaManualBuilder builder() {
+        return new TarefaManualBuilder();
+    }
 }

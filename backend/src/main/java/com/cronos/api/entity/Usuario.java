@@ -1,6 +1,5 @@
 package com.cronos.api.entity;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.cronos.api.builders.UsuarioManualBuilder;
 import com.cronos.api.dto.EnumTipoPerfil;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -22,11 +22,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -102,5 +100,9 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public static UsuarioManualBuilder builder() {
+        return new UsuarioManualBuilder();
     }
 }

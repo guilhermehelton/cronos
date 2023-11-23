@@ -41,13 +41,14 @@ public class TarefasService {
             return null;
         }
 
-        Tarefa newTarefa = new Tarefa();
-        newTarefa.setDescricao(tarefaInput.getDescricao());
-        newTarefa.setDataInicio(tarefaInput.getDataInicio());
-        newTarefa.setDataFim(tarefaInput.getDataFim());
-        newTarefa.setCargaHoraria(tarefaInput.getCargaHoraria());
-        newTarefa.setIdDono(donoTarefa.get().getId());
-        newTarefa.setLaboratorio(laboratorio.get());
+        Tarefa newTarefa = Tarefa.builder()
+                .descricao(tarefaInput.getDescricao())
+                .dataInicio(tarefaInput.getDataInicio())
+                .dataFim(tarefaInput.getDataFim())
+                .cargaHoraria(tarefaInput.getCargaHoraria())
+                .idDono(donoTarefa.get().getId())
+                .laboratorio(laboratorio.get())
+                .build();
 
         Tarefa savedTarefa = tarefasRepository.save(newTarefa);
 

@@ -25,15 +25,16 @@ public class UsuarioService {
             return null;
         }
 
-        Usuario newUser = new Usuario();
-        newUser.setNome(inputUsuario.getNome());
-        newUser.setEmail(inputUsuario.getEmail());
-        newUser.setDataNascimento(inputUsuario.getDataNascimento());
-        newUser.setCurso(inputUsuario.getCurso());
-        newUser.setMatricula(inputUsuario.getMatricula());
-        newUser.setSenha(inputUsuario.getSenha());
-        newUser.setRole(inputUsuario.getRole());
-        newUser.setCargaHorariaTotal(0);
+        Usuario newUser = Usuario.builder()
+                .nome(inputUsuario.getNome())
+                .email(inputUsuario.getEmail())
+                .dataNascimento(inputUsuario.getDataNascimento())
+                .curso(inputUsuario.getCurso())
+                .matricula(inputUsuario.getMatricula())
+                .senha(inputUsuario.getSenha())
+                .role(inputUsuario.getRole())
+                .cargaHorariaTotal(0)
+                .build();
 
         Usuario savedUser = usuarioRepository.save(newUser);
 

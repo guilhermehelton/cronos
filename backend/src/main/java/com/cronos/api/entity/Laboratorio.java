@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
+import com.cronos.api.builders.LaboratorioManualBuilder;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -28,29 +29,33 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class Laboratorio implements Serializable {
-        @Id
-        @GeneratedValue(strategy = GenerationType.UUID)
-        private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-        @Column(length = 20, nullable = false)
-        private String nome;
+    @Column(length = 20, nullable = false)
+    private String nome;
 
-        @Column(nullable = false)
-        private Integer numeroSala;
+    @Column(nullable = false)
+    private Integer numeroSala;
 
-        @Column(nullable = false)
-        private UUID idCoordenador;
+    @Column(nullable = false)
+    private UUID idCoordenador;
 
-        @JsonManagedReference
-        @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        @JoinTable(name = "laboratorio_equipe", joinColumns = {
-                        @JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
-        }, inverseJoinColumns = {
-                        @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-        })
-        private Set<Usuario> equipe;
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "laboratorio_equipe", joinColumns = {
+            @JoinColumn(name = "laboratorio_id", referencedColumnName = "id")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    })
+    private Set<Usuario> equipe;
 
-        @JsonManagedReference
-        @OneToMany(mappedBy = "laboratorio")
-        private Set<Tarefa> tarefas;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "laboratorio")
+    private Set<Tarefa> tarefas;
+
+    public static LaboratorioManualBuilder builder() {
+        return new LaboratorioManualBuilder();
+    }
 }
