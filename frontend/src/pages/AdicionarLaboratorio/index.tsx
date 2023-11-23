@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Input } from "../../components/formInput/input"
 import { Header } from "../../components/header"
 import { Sidebar } from "../../components/sidebar"

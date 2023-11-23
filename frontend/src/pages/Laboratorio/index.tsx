@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useParams } from "react-router-dom"
 import { Header } from "../../components/header"
 import { Sidebar } from "../../components/sidebar"
@@ -24,7 +23,7 @@ export const LaboratorioPage = () => {
 
     useEffect(() => {
         setLaboratorio(laboratorios.filter(lab => lab.id == laboratorioId)[0]);
-    }, [])
+    }, [laboratorios, laboratorioId])
 
     const handleChangeCadastro = () => {
         if(isCadastro){

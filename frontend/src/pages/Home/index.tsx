@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useEffect } from "react"
 import { Header } from "../../components/header"
 import { Sidebar } from "../../components/sidebar"
@@ -20,7 +19,7 @@ export const Home = () => {
             }).then((response) => response.json()).then((data) => {
                 setLaboratorios(data);
             })
-    }, [])
+    }, [authToken, setLaboratorios, usuario.id])
 
     return (
         <div className="home">

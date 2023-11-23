@@ -38,7 +38,7 @@ export const TableTarefas = (props: Props) => {
                 newLab.tarefas = newTarefas;
                 const newContext = [...laboratorios]
 
-                let obj = newContext.find((lab, i) => {
+                newContext.find((lab, i) => {
                     if (lab.id === newLab.id) {
                         newContext[i] = newLab;
                         return true;
@@ -73,8 +73,8 @@ export const TableTarefas = (props: Props) => {
                             <td>{formatDataToShow(tarefa.dataFim)}</td>
                             <td>{tarefa.cargaHoraria}</td>
                             <td>
-                                <span className="material-symbols-outlined actionButton" onClick={e => setTarefaToEditData(tarefa)}>edit</span>
-                                <span className="material-symbols-outlined actionButton margin-left-1em" onClick={e => handleDelete(tarefa)}>delete</span>
+                                <span className="material-symbols-outlined actionButton" onClick={() => setTarefaToEditData(tarefa)}>edit</span>
+                                <span className="material-symbols-outlined actionButton margin-left-1em" onClick={() => handleDelete(tarefa)}>delete</span>
                             </td>
                         </tr>
                     )
